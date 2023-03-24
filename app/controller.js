@@ -28,7 +28,7 @@ const readProduct = async (req, res) => {
         res.send(error);
     }
 }
-
+// function update
 const updateProduct = async (req, res) => {
     const { name, price, stock, status } = req.body;
     const image = req.file;
@@ -37,19 +37,30 @@ const updateProduct = async (req, res) => {
         fs.renameSync(image.path, target);
         try {
             await Product.sync();
-            const result = await Product.update({ name, price, stock, status, image_url: `http:localhost:3001/public/${image.originalname}` }, { where:{id: req.params.id}});
+            const result = await Product.update({ name, price, stock, status, image_url: `http:localhost:3001/public/${image.originalname}` }, { where: { id: req.params.id } });
             res.send(result);
         } catch (error) {
             res.send(error);
         }
-    }else{
+    } else {
         try {
             await Product.sync();
-            const result = await Product.update({ name, price, stock, status}, { where:{id: req.params.id}});
+            const result = await Product.update({ name, price, stock, status }, { where: { id: req.params.id } });
             res.send(result);
         } catch (error) {
             res.send(error);
         }
     }
 }
-module.exports = { createProduct, readProduct, updateProduct };
+
+const deleteProduct = async (req, res) => {
+    try {
+        await Product.sync();
+        const result = await Product.destroy({ where: { id: req.params.id } });
+    } catch (error) {
+        res.send(error);
+    }
+}
+
+
+module.exports = { createProduct, readProduct, updateProduct, deleteProduct };
