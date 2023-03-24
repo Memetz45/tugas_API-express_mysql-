@@ -52,7 +52,7 @@ const updateProduct = async (req, res) => {
         }
     }
 }
-
+// function delete
 const deleteProduct = async (req, res) => {
     try {
         await Product.sync();
