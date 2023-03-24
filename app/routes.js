@@ -7,5 +7,7 @@ const appController = require ('./controller');
 router.post('/product',upload.single('image'), appController.createProduct );
 // route read
 router.get('/product', appController.readProduct );
+// route update
+router.put('/product/:id',upload.single('image'), appController.updateProduct );
 
 module.exports = router;
